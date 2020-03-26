@@ -1,6 +1,6 @@
 ## Instalation
 
-Clone repo to empty dir and run ```$ docker-compose up```. 
+Clone repo to empty dir and run ```docker-compose up```. 
 
 Also you need to init DB and install composer dependencies, to do so, run init script from the docker:
 ```
