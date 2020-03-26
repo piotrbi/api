@@ -1,25 +1,21 @@
 ## Instalation
 
-* Clone git clone https://github.com/eko/docker-symfony.git into some empty directory
-* In the docker-symfony dir clone clone this repository .... 
+Clone repo to empty dir and run ```$ docker-compose up```. 
 
-## Run it
-Run docker from docker-symfony dir
+Also you need to init DB and install composer dependencies, to do so, run init script from the docker:
 ```
-$ docker-compose up
+docker exec api_php /bin/sh -c "./docker/init.sh"
 ```
 
+Also you need to add ```127.0.0.1 api.local``` to your **/etc/hosts** file.
+
+After that you can visit http://api.local:8082/api page, where you can find swagger api documentation.
 
 ## Test it
-Create test database:
-```bash
-docker exec -it php-fpm sh -c \
-"bin/console doctrine:database:create --env=test --if-not-exists -q && \
-bin/console doctrine:migrations:migrate --env=test -q"
-```
+
 Run tests:
 ```bash
-docker exec -it php-fpm sh -c "bin/phpunit"
+docker exec api_php /bin/sh -c "bin/phpunit"
 ```
 Test output
 ```bash
@@ -28,7 +24,7 @@ PHPUnit 8.3.5 by Sebastian Bergmann and contributors.
 Testing Project Test Suite
 ...............                                                   15 / 15 (100%)
 
-Time: 3.53 seconds, Memory: 50.50 MB
+Time: 792 ms, Memory: 30.00 MB
 
 OK (15 tests, 42 assertions)
 ```

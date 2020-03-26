@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    web:
+        build: ./docker/images/nginx
+        ports:
+            - "8082:80"
+        volumes:
+            - ./:/var/www/html
+            - ./docker/images/nginx/site.conf:/etc/nginx/conf.d/site.conf
+        links:
+            - php
+        container_name: api_web
+    php:
+        build: ./docker/images/php
+        volumes:
+          - ./:/var/www/html
+        links:
+            - db
+        working_dir: /var/www/html
+        container_name: api_php
+    db:
+        image: mariadb:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=imroot
+            - MYSQL_DATABASE=api
+            - MYSQL_USER=api
+            - MYSQL_PASSWORD=pass
+        ports:
+            - 6668:3306
+        volumes:
+            - ./docker/data/mysql:/var/lib/mysql
+            - ./docker/provision/mysql/init:/docker-entrypoint-initdb.d
+        container_name: api_db
+
+

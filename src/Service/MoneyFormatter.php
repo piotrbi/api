@@ -5,6 +5,7 @@ namespace App\Service;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
+use NumberFormatter;
 
 class MoneyFormatter
 {
@@ -17,7 +18,7 @@ class MoneyFormatter
     {
         if (is_null(self::$instance)) {
             self::$instance = new IntlMoneyFormatter(
-                new \NumberFormatter(self::LOCALE, \NumberFormatter::CURRENCY),
+                new NumberFormatter(self::LOCALE, NumberFormatter::CURRENCY),
                 new ISOCurrencies()
             );
         }
